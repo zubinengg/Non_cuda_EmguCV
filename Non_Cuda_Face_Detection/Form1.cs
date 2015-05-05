@@ -60,7 +60,7 @@ namespace Non_Cuda_Face_Detection
             if (ImageFrame != null)
             {
                 Image<Gray, byte> grayframe = ImageFrame.Convert<Gray, byte>();
-                var faces = grayframe.DetectHaarCascade(haar, 1.4, 4,
+                var faces = grayframe.DetectHaarCascade(haar, 1.4, 6,
                     HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
                     new Size(25, 25))[0];
                 //var temp = grayframe.DetectHaarCascade(haar, 1.4 ,6, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE,)
