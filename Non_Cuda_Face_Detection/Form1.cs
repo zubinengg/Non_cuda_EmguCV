@@ -64,7 +64,6 @@ namespace Non_Cuda_Face_Detection
                     HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
                     new Size(25, 25))[0];
                 //var temp = grayframe.DetectHaarCascade(haar, 1.4 ,6, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE,)
-                //testing
                 foreach (var face in faces)
                 {
                     ImageFrame.Draw(face.rect, new Bgr(Color.Green), 3);
