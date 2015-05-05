@@ -1,6 +1,6 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-[Bb]in/
-[Oo]bj/
+#[Bb]in/
+#[Oo]bj/
 
 
 ## Ignore Visual Studio temporary files, build results, and
@@ -21,8 +21,8 @@
 x64/
 build/
 bld/
-[Bb]in/
-[Oo]bj/
+#[Bb]in/
+#[Oo]bj/
 
 # Roslyn cache directories
 *.ide/
