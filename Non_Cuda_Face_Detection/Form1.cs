@@ -58,7 +58,7 @@ namespace Non_Cuda_Face_Detection
             string fileName = "W:\\research\\1.tif";
             imageBox1.SizeMode = PictureBoxSizeMode.Zoom;
             imageBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            Image<Bgr, Byte> ImageFrame = new Image<Bgr, Byte>(@"F:\research\1.jpg");
+            Image<Bgr, Byte> ImageFrame = new Image<Bgr, Byte>(@"F:\research\2.jpg");
             imageBox1.Image = ImageFrame;
             
             if (ImageFrame != null)
@@ -72,7 +72,7 @@ namespace Non_Cuda_Face_Detection
                     count += 1;
                     ImageFrame.Draw(face.rect, new Bgr(Color.Green), 3);
                     set_image(ImageFrame, face.rect);
-                    if (count>1)
+                    if (count>0)
                     {
                         break;
                     }
