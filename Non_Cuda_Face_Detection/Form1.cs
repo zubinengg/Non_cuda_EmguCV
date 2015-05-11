@@ -26,8 +26,8 @@ namespace Non_Cuda_Face_Detection
         {
             InitializeComponent();
             haar = new HaarCascade("haarcascade_frontalface_default.xml");
-            this.textBox1.Text = "1.1";
-            this.textBox2.Text = "2";
+            this.textBox1.Text = "1.2";
+            this.textBox2.Text = "4";
             this.textBox3.Text = "25";
             //haar1 = new CascadeClassifier("haarcascade_frontalface_default.xml");
         }
