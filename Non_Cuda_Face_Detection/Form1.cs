@@ -58,7 +58,7 @@ namespace Non_Cuda_Face_Detection
             string fileName = "W:\\research\\1.tif";
             imageBox1.SizeMode = PictureBoxSizeMode.Zoom;
             imageBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            Image<Bgr, Byte> ImageFrame = new Image<Bgr, Byte>(@"F:\research\2.jpg");
+            Image<Bgr, Byte> ImageFrame = new Image<Bgr, Byte>(@"W:\research\1.jpg");
             imageBox1.Image = ImageFrame;
             
             if (ImageFrame != null)
