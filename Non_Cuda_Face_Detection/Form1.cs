@@ -29,6 +29,7 @@ namespace Non_Cuda_Face_Detection
             this.textBox1.Text = "1.2";
             this.textBox2.Text = "4";
             this.textBox3.Text = "25";
+            this.textBox4.Text = @"F:\research\2.jpg";
             //haar1 = new CascadeClassifier("haarcascade_frontalface_default.xml");
         }
 
@@ -69,7 +70,7 @@ namespace Non_Cuda_Face_Detection
             string fileName = "W:\\research\\1.tif";
             imageBox1.SizeMode = PictureBoxSizeMode.Zoom;
             imageBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            Image<Bgr, Byte> ImageFrame = new Image<Bgr, Byte>(@"W:\research\2.jpg");
+            Image<Bgr, Byte> ImageFrame = new Image<Bgr, Byte>(this.textBox4.Text.ToString());
             imageBox1.Image = ImageFrame;
             
             if (ImageFrame != null)
