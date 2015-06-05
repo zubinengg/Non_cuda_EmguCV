@@ -50,6 +50,7 @@ namespace Non_Cuda_Face_Detection
             {
                 source.ROI = crop;
                 imageBox2.Image = source;
+                // TESTING FOR COMMIT
             }
             catch
             {
