@@ -19,6 +19,7 @@ namespace Non_Cuda_Face_Detection
     public partial class Form1 : Form
     {
         private HaarCascade haar;
+        //private CascadeClassifier eye;
         private HaarCascade eye;
         //private CascadeClassifier haar1;
 
@@ -32,7 +33,8 @@ namespace Non_Cuda_Face_Detection
             this.textBox3.Text = "25";
             this.textBox4.Text = @"F:\research\1.jpg";
             //haar1 = new CascadeClassifier("haarcascade_frontalface_default.xml");
-            eye = new HaarCascade("haarcascade_eye_tree_eyeglasses.xml");
+            //eye = new CascadeClassifier("haarcascade_eye_tree_eyeglasses.xml");
+            eye = new HaarCascade("haarcascade_eye.xml");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -106,7 +108,10 @@ namespace Non_Cuda_Face_Detection
                     new Size(minDetectionScale, minDetectionScale))[0];
 
                 //Eyes 
-                var eyes = grayframe.DetectHaarCascade(eye, 1.1, 4, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25));
+                //var eyes = eye.DetectMultiScale(grayframe, 1.2, 1, new Size(25, 25), new Size(500, 500));
+                var eyes = grayframe.DetectHaarCascade(eye, 1.4, 4, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25));
+
+
                 
 
 
