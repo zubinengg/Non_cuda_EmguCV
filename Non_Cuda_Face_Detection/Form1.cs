@@ -111,8 +111,7 @@ namespace Non_Cuda_Face_Detection
                 //var eyes = eye.DetectMultiScale(grayframe, 1.2, 1, new Size(25, 25), new Size(500, 500));
                 var eyes = grayframe.DetectHaarCascade(eye, 1.4, 4, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25));
 
-
-                
+                              
 
 
                 //var faces = greyframe.CascadeClassifier(haar1, 1.4, 6, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25))[0];
@@ -138,7 +137,7 @@ namespace Non_Cuda_Face_Detection
                         loop += 1;
                     }
                     this.label7.Text = "Number of Eyes detected = " + (eyes.Length*2).ToString();
-                    this.label7.Text = "Number of Eyes detected = " + (loop).ToString();
+                    //this.label7.Text = "Number of Eyes detected = " + (loop).ToString();
                 }
                 set_image(ImageFrame, bigFace);
             }
