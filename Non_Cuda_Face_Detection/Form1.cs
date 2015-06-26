@@ -46,44 +46,105 @@ namespace Non_Cuda_Face_Detection
         {
 
         }
-
-        public Color[][] GetBitMapColorMatrix(string bitmapFilePath)
+        Bitmap NormalizeLbpMatrix(double[,] Mat, Bitmap lbp, double max)
         {
-            bitmapFilePath = @"C:\9673780.jpg";
-            Bitmap b1 = new Bitmap(bitmapFilePath);
-
-            int hight = b1.Height;
-            int width = b1.Width;
-
-            Color[][] colorMatrix = new Color[width][];
-            for (int i = 0; i < width; i++)
+            int NumRow = lbp.Height;
+            int numCol = lbp.Width;
+            for (int i = 0; i < NumRow; i++)
             {
-                colorMatrix[i] = new Color[hight];
-                for (int j = 0; j < hight; j++)
+                for (int j = 0; j < numCol; j++)
                 {
-                    colorMatrix[i][j] = b1.GetPixel(i, j);
+                    // see the Normalization process of dividing pixel by max value and multiplying with 255
+                    double d = Mat[j, i] / max;
+                    int v = (int)(d * 255);
+                    Color c = Color.FromArgb(v, v, v);
+                    lbp.SetPixel(j, i, c);
                 }
             }
-            return colorMatrix;
+            return lbp;
         }
-        /*
-        public static Image<Gray, byte> AlignEyes(Image<Gray, byte> image)
+        double Bin2Dec(List<int> vals)
         {
-            Rectangle[] eyes = EyeClassifier.DetectMultiScale(image, 1.4, 0, new Size(1, 1), new Size(50, 50));
-            var unifiedEyes = CombineOverlappingRectangles(eyes).OrderBy(r => r.X).ToList();
-            if (unifiedEyes.Count == 2)
+            double mult = 1;
+            double sum = 0;
+            foreach (int v in vals)
             {
-                var deltaY = (unifiedEyes[1].Y + unifiedEyes[1].Height / 2) - (unifiedEyes[0].Y + unifiedEyes[0].Height / 2);
-                var deltaX = (unifiedEyes[1].X + unifiedEyes[1].Width / 2) - (unifiedEyes[0].X + unifiedEyes[0].Width / 2);
-                double degrees = Math.Atan2(deltaY, deltaX) * 180 / Math.PI;
-                if (Math.Abs(degrees) < 35)
+                sum += mult * v;
+                mult *= 2;
+            }
+            return sum;
+        }
+        Bitmap LBP(Bitmap srcBmp, int R)
+        {
+            // We want to get LBP image from srcBmp and window R
+            Bitmap bmp = srcBmp;
+            //1. Extract rows and columns from srcImage . Note Source image is Gray scale Converted Image
+            int NumRow = srcBmp.Height;
+            int numCol = srcBmp.Width;
+            Bitmap lbp = new Bitmap(numCol, NumRow);
+            Bitmap GRAY = new Bitmap(numCol, NumRow);// GRAY is the resultant matrix 
+            double[,] MAT = new double[numCol, NumRow];
+            double max = 0.0;
+            //2. Loop through Pixels
+            for (int i = 0; i < NumRow; i++)
+            {
+                for (int j = 0; j < numCol; j++)
                 {
-                    image = image.Rotate(-degrees, new Gray(0));
+                    //  Color c1=Color.FromArgb(0,0,0);
+                    MAT[j, i] = 0;
+                    //lbp.SetPixel(j, i,c1) ;
+
+
+                    //define boundary condition, other wise say if you are looking at pixel (0,0), it does not have any suitable neighbors
+                    if ((i > R) && (j > R) && (i < (NumRow - R)) && (j < (numCol - R)))
+                    {
+                        // we want to store binary values in a List
+                        List<int> vals = new List<int>();
+                        try
+                        {
+                            for (int i1 = i - R; i1 < (i + R); i1++)
+                            {
+                                for (int j1 = j - R; j1 < (j + R); j1++)
+                                {
+                                    int acPixel = srcBmp.GetPixel(j, i).R;
+                                    int nbrPixel = srcBmp.GetPixel(j1, i1).R;
+                                    // 3. This is the main Logic of LBP
+                                    if (nbrPixel > acPixel)
+                                    {
+                                        vals.Add(1);
+                                    }
+                                    else
+                                    {
+                                        vals.Add(0);
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                        //4. Once we have a list of 1's and 0's , convert the list to decimal
+                        // Also for normalization purpose calculate Max value
+                        double d1 = Bin2Dec(vals);                        
+                        MAT[j, i] = d1;
+                        if (d1 > max)
+                        {
+                            max = d1;
+                        }
+                    }
+
+                    //////////////////
+
+
                 }
             }
-            return image;
+            //5. Normalize LBP matrix MAT an obtain LBP image lbp
+            lbp = NormalizeLbpMatrix(MAT, lbp, max);
+            return lbp;
         }
-        */
+
+
+
 
         private void set_image(Image<Bgr, Byte> source, Rectangle crop)
         {
@@ -93,6 +154,7 @@ namespace Non_Cuda_Face_Detection
                 //Image<Bgr, Byte> region=source;
                 ImageFrame.ROI = crop;
                 imageBox2.Image = ImageFrame.Convert<Gray, byte>();
+                imageBox3.Image = new Image<Bgr, Byte>(LBP(ImageFrame.ToBitmap(), 4)); 
                 // TESTING FOR COMMIT
             }
             catch
@@ -132,7 +194,7 @@ namespace Non_Cuda_Face_Detection
                 //var eyes = eye.DetectMultiScale(grayframe, 1.2, 1, new Size(25, 25), new Size(500, 500));
                 var eyes = grayframe.DetectHaarCascade(eye, 1.1, 2, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25));
 
-                              
+
 
 
                 //var faces = greyframe.CascadeClassifier(haar1, 1.4, 6, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25))[0];
@@ -145,27 +207,32 @@ namespace Non_Cuda_Face_Detection
                         ImageFrame.Draw(face.rect, new Bgr(Color.Green), 3);
                         bigFace = get_big_rect(bigFace, face.rect);
                     }
-                    
+
                     this.label5.Text = "Number of Face detected = " + faces.Length.ToString();
                     set_image(ImageFrame, bigFace);
                     //ImageFrame.ROI = bigFace;
                 }
-                
-                
-                if (eyes.Length>0)
+
+
+                if (eyes.Length > 0)
                 {
                     int loop = 0;
-                    foreach(var eyesnap in eyes[0])
+                    foreach (var eyesnap in eyes[0])
                     {
                         //Rectangle eyeRect = eyesnap.rect;
                         ImageFrame.Draw(eyesnap.rect, new Bgr(Color.Blue), 2);
                         loop += 1;
                     }
-                    this.label7.Text = "Number of Eyes detected = " + (eyes.Length*2).ToString();
+                    this.label7.Text = "Number of Eyes detected = " + (eyes.Length * 2).ToString();
                     //this.label7.Text = "Number of Eyes detected = " + (loop).ToString();
                 }
-               
+
             }
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
