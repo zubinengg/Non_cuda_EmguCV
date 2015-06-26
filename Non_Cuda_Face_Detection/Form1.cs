@@ -31,7 +31,7 @@ namespace Non_Cuda_Face_Detection
             this.textBox1.Text = "1.2";
             this.textBox2.Text = "4";
             this.textBox3.Text = "25";
-            this.textBox4.Text = @"F:\research\1.jpg";
+            this.textBox4.Text = @"F:\research\6.tif";
             //haar1 = new CascadeClassifier("haarcascade_frontalface_default.xml");
             //eye = new CascadeClassifier("haarcascade_eye_tree_eyeglasses.xml");
             eye = new HaarCascade("haarcascade_eye.xml");
@@ -47,6 +47,25 @@ namespace Non_Cuda_Face_Detection
 
         }
 
+        public Color[][] GetBitMapColorMatrix(string bitmapFilePath)
+        {
+            bitmapFilePath = @"C:\9673780.jpg";
+            Bitmap b1 = new Bitmap(bitmapFilePath);
+
+            int hight = b1.Height;
+            int width = b1.Width;
+
+            Color[][] colorMatrix = new Color[width][];
+            for (int i = 0; i < width; i++)
+            {
+                colorMatrix[i] = new Color[hight];
+                for (int j = 0; j < hight; j++)
+                {
+                    colorMatrix[i][j] = b1.GetPixel(i, j);
+                }
+            }
+            return colorMatrix;
+        }
         /*
         public static Image<Gray, byte> AlignEyes(Image<Gray, byte> image)
         {
@@ -70,8 +89,10 @@ namespace Non_Cuda_Face_Detection
         {
             try
             {
-                source.ROI = crop;
-                imageBox2.Image = source;
+                Image<Bgr, Byte> ImageFrame = new Image<Bgr, Byte>(this.textBox4.Text.ToString());
+                //Image<Bgr, Byte> region=source;
+                ImageFrame.ROI = crop;
+                imageBox2.Image = ImageFrame.Convert<Gray, byte>();
                 // TESTING FOR COMMIT
             }
             catch
@@ -109,7 +130,7 @@ namespace Non_Cuda_Face_Detection
 
                 //Eyes 
                 //var eyes = eye.DetectMultiScale(grayframe, 1.2, 1, new Size(25, 25), new Size(500, 500));
-                var eyes = grayframe.DetectHaarCascade(eye, 1.4, 4, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25));
+                var eyes = grayframe.DetectHaarCascade(eye, 1.1, 2, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25));
 
                               
 
@@ -126,7 +147,11 @@ namespace Non_Cuda_Face_Detection
                     }
                     
                     this.label5.Text = "Number of Face detected = " + faces.Length.ToString();
+                    set_image(ImageFrame, bigFace);
+                    //ImageFrame.ROI = bigFace;
                 }
+                
+                
                 if (eyes.Length>0)
                 {
                     int loop = 0;
@@ -139,7 +164,7 @@ namespace Non_Cuda_Face_Detection
                     this.label7.Text = "Number of Eyes detected = " + (eyes.Length*2).ToString();
                     //this.label7.Text = "Number of Eyes detected = " + (loop).ToString();
                 }
-                set_image(ImageFrame, bigFace);
+               
             }
         }
     }

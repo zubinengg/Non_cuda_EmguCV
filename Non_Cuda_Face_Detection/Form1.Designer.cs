@@ -52,7 +52,7 @@
             this.imageBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.imageBox1.Location = new System.Drawing.Point(13, 39);
             this.imageBox1.Name = "imageBox1";
-            this.imageBox1.Size = new System.Drawing.Size(515, 472);
+            this.imageBox1.Size = new System.Drawing.Size(296, 283);
             this.imageBox1.TabIndex = 2;
             this.imageBox1.TabStop = false;
             this.imageBox1.Click += new System.EventHandler(this.imageBox1_Click);
@@ -70,7 +70,7 @@
             // imageBox2
             // 
             this.imageBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.imageBox2.Location = new System.Drawing.Point(534, 345);
+            this.imageBox2.Location = new System.Drawing.Point(315, 42);
             this.imageBox2.Name = "imageBox2";
             this.imageBox2.Size = new System.Drawing.Size(173, 166);
             this.imageBox2.TabIndex = 4;
@@ -151,7 +151,7 @@
             // 
             this.textBox4.Location = new System.Drawing.Point(89, 16);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(439, 20);
+            this.textBox4.Size = new System.Drawing.Size(339, 20);
             this.textBox4.TabIndex = 13;
             // 
             // label6
