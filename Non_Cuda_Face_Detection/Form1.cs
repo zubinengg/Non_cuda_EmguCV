@@ -66,12 +66,13 @@ namespace Non_Cuda_Face_Detection
         }
         double Bin2Dec(List<int> vals)
         {
-            double mult = 1;
+            double mult = 256;
             double sum = 0;
+            //Boolean test = false;
             foreach (int v in vals)
             {
                 sum += mult * v;
-                mult *= 2;
+                mult /= 2;
             }
             return sum;
         }
@@ -126,7 +127,7 @@ namespace Non_Cuda_Face_Detection
                         }
                         //4. Once we have a list of 1's and 0's , convert the list to decimal
                         // Also for normalization purpose calculate Max value
-                        double d1 = Bin2Dec(vals);                        
+                        double d1 = Bin2Dec(vals);
                         MAT[j, i] = d1;
                         if (d1 > max)
                         {
@@ -155,7 +156,7 @@ namespace Non_Cuda_Face_Detection
                 //Image<Bgr, Byte> region=source;
                 ImageFrame.ROI = crop;
                 imageBox2.Image = ImageFrame.Convert<Gray, byte>();
-                imageBox3.Image = new Image<Bgr, Byte>(LBP(ImageFrame.ToBitmap(), Convert.ToInt16(this.textBox6.Text.ToString()))); 
+                imageBox3.Image = new Image<Bgr, Byte>(LBP(ImageFrame.ToBitmap(), Convert.ToInt16(this.textBox6.Text.ToString())));
                 // TESTING FOR COMMIT
             }
             catch
