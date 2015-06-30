@@ -29,7 +29,7 @@ namespace Non_Cuda_Face_Detection
             this.textBox1.Text = "1.2";
             this.textBox2.Text = "4";
             this.textBox3.Text = "25";
-            this.textBox4.Text = @"F:\research\4.jpg";
+            this.textBox4.Text = @"W:\research\2.jpg";
             //haar1 = new CascadeClassifier("haarcascade_frontalface_default.xml");
         }
 
