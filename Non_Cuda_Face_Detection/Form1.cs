@@ -32,6 +32,7 @@ namespace Non_Cuda_Face_Detection
             this.textBox2.Text = "4";
             this.textBox3.Text = "25";
             this.textBox4.Text = @"F:\research\6.tif";
+            this.textBox6.Text = "1";
             //haar1 = new CascadeClassifier("haarcascade_frontalface_default.xml");
             //eye = new CascadeClassifier("haarcascade_eye_tree_eyeglasses.xml");
             eye = new HaarCascade("haarcascade_eye.xml");
@@ -154,7 +155,7 @@ namespace Non_Cuda_Face_Detection
                 //Image<Bgr, Byte> region=source;
                 ImageFrame.ROI = crop;
                 imageBox2.Image = ImageFrame.Convert<Gray, byte>();
-                imageBox3.Image = new Image<Bgr, Byte>(LBP(ImageFrame.ToBitmap(), 4)); 
+                imageBox3.Image = new Image<Bgr, Byte>(LBP(ImageFrame.ToBitmap(), Convert.ToInt16(this.textBox6.Text.ToString()))); 
                 // TESTING FOR COMMIT
             }
             catch
@@ -231,6 +232,16 @@ namespace Non_Cuda_Face_Detection
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
