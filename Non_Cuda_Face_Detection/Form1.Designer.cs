@@ -47,6 +47,7 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox3)).BeginInit();
@@ -183,15 +184,15 @@
             // imageBox3
             // 
             this.imageBox3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.imageBox3.Location = new System.Drawing.Point(616, 198);
+            this.imageBox3.Location = new System.Drawing.Point(315, 214);
             this.imageBox3.Name = "imageBox3";
-            this.imageBox3.Size = new System.Drawing.Size(333, 323);
+            this.imageBox3.Size = new System.Drawing.Size(173, 166);
             this.imageBox3.TabIndex = 16;
             this.imageBox3.TabStop = false;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(0, 527);
+            this.textBox5.Location = new System.Drawing.Point(12, 386);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(713, 92);
@@ -216,11 +217,22 @@
             this.label8.TabIndex = 19;
             this.label8.Text = "Radius";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(498, 247);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(147, 13);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "Given Face Resolution =";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(961, 631);
+            this.ClientSize = new System.Drawing.Size(732, 480);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
@@ -270,6 +282,7 @@
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }
 

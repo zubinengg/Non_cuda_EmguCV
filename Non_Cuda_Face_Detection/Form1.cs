@@ -213,6 +213,7 @@ namespace Non_Cuda_Face_Detection
 
                     this.label5.Text = "Number of Face detected = " + faces.Length.ToString();
                     set_image(ImageFrame, bigFace);
+                    this.label9.Text = "Given Face Resolution =" + bigFace.Height.ToString() + "x" + bigFace.Width.ToString();
                     //ImageFrame.ROI = bigFace;
                 }
 
@@ -226,7 +227,7 @@ namespace Non_Cuda_Face_Detection
                         ImageFrame.Draw(eyesnap.rect, new Bgr(Color.Blue), 2);
                         loop += 1;
                     }
-                    this.label7.Text = "Number of Eyes detected = " + (eyes.Length * 2).ToString();
+                    this.label7.Text = "Number of Eyes detected = " + (eyes.Length).ToString();
                     //this.label7.Text = "Number of Eyes detected = " + (loop).ToString();
                 }
 
