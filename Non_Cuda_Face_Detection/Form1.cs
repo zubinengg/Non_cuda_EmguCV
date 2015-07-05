@@ -31,7 +31,7 @@ namespace Non_Cuda_Face_Detection
             this.textBox1.Text = "1.2";
             this.textBox2.Text = "4";
             this.textBox3.Text = "25";
-            this.textBox4.Text = @"F:\research\1.tif";
+            this.textBox4.Text = @"W:\research\1.tif";
             this.textBox6.Text = "1";
             //haar1 = new CascadeClassifier("haarcascade_frontalface_default.xml");
             //eye = new CascadeClassifier("haarcascade_eye_tree_eyeglasses.xml");
