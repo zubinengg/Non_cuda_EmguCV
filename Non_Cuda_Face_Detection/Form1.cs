@@ -33,6 +33,7 @@ namespace Non_Cuda_Face_Detection
             this.textBox3.Text = "25";
             this.textBox4.Text = @"W:\research\1.tif";
             this.textBox6.Text = "1";
+            //My Mod
             //haar1 = new CascadeClassifier("haarcascade_frontalface_default.xml");
             //eye = new CascadeClassifier("haarcascade_eye_tree_eyeglasses.xml");
             eye = new HaarCascade(@"C:\Emgu\emgucv-windows-universal 2.4.10.1940\opencv\data\haarcascades\haarcascade_eye.xml");
