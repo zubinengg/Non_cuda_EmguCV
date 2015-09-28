@@ -16,6 +16,7 @@ using Emgu.CV.CvEnum;
 
 namespace Non_Cuda_Face_Detection
 {
+    // detailed comments pending
     public partial class Form1 : Form
     {
         private HaarCascade haar;
