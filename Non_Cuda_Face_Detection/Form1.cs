@@ -28,7 +28,9 @@ namespace Non_Cuda_Face_Detection
         public Form1()
         {
             InitializeComponent();
+            // I am using haar cassade functions for face detaction non cuda engucv
             haar = new HaarCascade(@"C:\Emgu\emgucv-windows-universal 2.4.10.1940\opencv\data\haarcascades\haarcascade_frontalface_default.xml");
+            // the initial values for optimal haar cascasde function are loadad in the text box unesr can vary..... I will remove it later
             this.textBox1.Text = "1.2";
             this.textBox2.Text = "4";
             this.textBox3.Text = "25";
@@ -37,6 +39,8 @@ namespace Non_Cuda_Face_Detection
             //My Mod
             //haar1 = new CascadeClassifier("haarcascade_frontalface_default.xml");
             //eye = new CascadeClassifier("haarcascade_eye_tree_eyeglasses.xml");
+            // I am using haar cassade functions for eye detaction 
+            // the basic objective is for the face alignment.... 
             eye = new HaarCascade(@"C:\Emgu\emgucv-windows-universal 2.4.10.1940\opencv\data\haarcascades\haarcascade_eye.xml");
         }
 
@@ -49,6 +53,9 @@ namespace Non_Cuda_Face_Detection
         {
 
         }
+
+       
+
         Bitmap NormalizeLbpMatrix(double[,] Mat, Bitmap lbp, double max)
         {
             int NumRow = lbp.Height;
@@ -148,7 +155,7 @@ namespace Non_Cuda_Face_Detection
         }
 
 
-
+       
 
         private void set_image(Image<Bgr, Byte> source, Rectangle crop)
         {
@@ -159,8 +166,16 @@ namespace Non_Cuda_Face_Detection
                 ImageFrame.ROI = crop;
                 imageBox2.Image = ImageFrame.Convert<Gray, byte>();
                 imageBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-                imageBox3.Image = new Image<Bgr, Byte>(LBP(ImageFrame.ToBitmap(), Convert.ToInt16(this.textBox6.Text.ToString())));
+                Image<Bgr, Byte> LBP_Image = new Image<Bgr, Byte>(LBP(ImageFrame.ToBitmap(), Convert.ToInt16(this.textBox6.Text.ToString())));
+                imageBox3.Image = LBP_Image;
+                imageBox4.SizeMode = PictureBoxSizeMode.Zoom;
+                //Image<Bgr, Byte> LBP_Image_Resized = resizeImage(LBP_Image.ToBitmap, new Size(50, 50));
+                Image<Bgr, Byte> resizedImage = LBP_Image.Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_LINEAR);
+                imageBox4.Image = resizedImage;
+                this.label10.Text = "Given Face Resolution =" + resizedImage.Width.ToString() +" X " + resizedImage.Height.ToString();
+
                 // TESTING FOR COMMIT
+                //yourImage.toBitmap().Save("filename");
             }
             catch
             {

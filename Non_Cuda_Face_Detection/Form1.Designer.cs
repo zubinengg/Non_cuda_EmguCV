@@ -48,9 +48,12 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.imageBox4 = new Emgu.CV.UI.ImageBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // imageBox1
@@ -227,11 +230,32 @@
             this.label9.TabIndex = 20;
             this.label9.Text = "Given Face Resolution =";
             // 
+            // imageBox4
+            // 
+            this.imageBox4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.imageBox4.Location = new System.Drawing.Point(494, 267);
+            this.imageBox4.Name = "imageBox4";
+            this.imageBox4.Size = new System.Drawing.Size(90, 90);
+            this.imageBox4.TabIndex = 21;
+            this.imageBox4.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(491, 360);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(152, 13);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Resize Face Resolution =";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(732, 480);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.imageBox4);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox6);
@@ -257,6 +281,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,6 +308,8 @@
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private Emgu.CV.UI.ImageBox imageBox4;
+        private System.Windows.Forms.Label label10;
     }
 }
 
