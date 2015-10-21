@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 using Emgu.CV;
 using Emgu.CV.Structure;
@@ -54,7 +55,7 @@ namespace Non_Cuda_Face_Detection
 
         }
 
-       
+
 
         Bitmap NormalizeLbpMatrix(double[,] Mat, Bitmap lbp, double max)
         {
@@ -145,8 +146,6 @@ namespace Non_Cuda_Face_Detection
                     }
 
                     //////////////////
-
-
                 }
             }
             //5. Normalize LBP matrix MAT an obtain LBP image lbp
@@ -155,7 +154,7 @@ namespace Non_Cuda_Face_Detection
         }
 
 
-       
+
 
         private void set_image(Image<Bgr, Byte> source, Rectangle crop)
         {
@@ -170,12 +169,21 @@ namespace Non_Cuda_Face_Detection
                 imageBox3.Image = LBP_Image;
                 imageBox4.SizeMode = PictureBoxSizeMode.Zoom;
                 //Image<Bgr, Byte> LBP_Image_Resized = resizeImage(LBP_Image.ToBitmap, new Size(50, 50));
-                Image<Bgr, Byte> resizedImage = LBP_Image.Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_LINEAR);
+                Image<Bgr, Byte> resizedImage = LBP_Image.Resize(150, 150, Emgu.CV.CvEnum.INTER.CV_INTER_LINEAR);
                 imageBox4.Image = resizedImage;
-                this.label10.Text = "Given Face Resolution =" + resizedImage.Width.ToString() +" X " + resizedImage.Height.ToString();
+                this.label10.Text = "Given Face Resolution =" + resizedImage.Width.ToString() + " X " + resizedImage.Height.ToString();
 
                 // TESTING FOR COMMIT
-                //yourImage.toBitmap().Save("filename");
+
+                //@"F:\research\1.tif"
+                //resizedImage.ToBitmap
+                if (File.Exists(@"F:\research\first_done.jpg"))
+                {
+                    File.Delete(@"F:\research\first_done.jpg");
+                }
+
+                resizedImage.ToBitmap().Save(@"F:\research\first_done.jpg");
+
             }
             catch
             {
