@@ -154,7 +154,10 @@ namespace Non_Cuda_Face_Detection
         }
 
 
-
+        private int [] get_vectors(Bitmap srcBmp)
+        {
+            return new int[] { 1, 2 };
+        }
 
         private void set_image(Image<Bgr, Byte> source, Rectangle crop)
         {
