@@ -135,7 +135,7 @@ namespace Non_Cuda_Face_Detection
                         catch (Exception ex)
                         {
                         }
-                        //4. Once we have a list of 1's and 0's , convert the list to decimal
+                        // 4. Once we have a list of 1's and 0's , convert the list to decimal
                         // Also for normalization purpose calculate Max value
                         double d1 = Bin2Dec(vals);
                         MAT[j, i] = d1;
@@ -154,9 +154,32 @@ namespace Non_Cuda_Face_Detection
         }
 
 
-        private int [] get_vectors(Bitmap srcBmp)
+        private int[] get_vectors(Bitmap srcBmp)
         {
-            return new int[] { 1, 2 };
+            Bitmap bmp = srcBmp;
+            //1. Extract rows and columns from srcImage . Note Source image is Gray scale Converted Image
+            int NumRow = srcBmp.Height;
+            int numCol = srcBmp.Width;
+            Bitmap lbp = new Bitmap(numCol, NumRow);
+            Bitmap GRAY = new Bitmap(numCol, NumRow);// GRAY is the resultant matrix 
+            double[,] MAT = new double[numCol, NumRow];
+            int[] ret_vect = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+
+            for (int i = 0; i < 150; i++)
+                for (int j = 0; j < 150; j++)
+                {
+                    int b = i / 50;
+                    int a = j / 50;
+                    int acPixel =
+                    ret_vect[a + b * 3] += srcBmp.GetPixel(i, j).R;
+                }
+
+            for (int i = 0; i < 9; i++)
+            {
+                ret_vect[i] /= 25;
+            }
+            return ret_vect;
         }
 
         private void set_image(Image<Bgr, Byte> source, Rectangle crop)
@@ -186,6 +209,13 @@ namespace Non_Cuda_Face_Detection
                 }
 
                 resizedImage.ToBitmap().Save(@"F:\research\first_done.jpg");
+                int[] vector_done=get_vectors(resizedImage.ToBitmap());
+                string show = "";
+                for(int i=0;i<9;i++)
+                {
+                    show += vector_done[i].ToString() + ",";
+                }
+                this.textBox5.Text = show;
 
             }
             catch
@@ -224,9 +254,6 @@ namespace Non_Cuda_Face_Detection
                 //Eyes 
                 //var eyes = eye.DetectMultiScale(grayframe, 1.2, 1, new Size(25, 25), new Size(500, 500));
                 var eyes = grayframe.DetectHaarCascade(eye, 1.1, 2, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25));
-
-
-
 
                 //var faces = greyframe.CascadeClassifier(haar1, 1.4, 6, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(25, 25))[0];
 
