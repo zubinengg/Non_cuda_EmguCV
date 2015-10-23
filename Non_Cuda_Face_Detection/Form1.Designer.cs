@@ -198,6 +198,7 @@
             this.textBox5.Location = new System.Drawing.Point(12, 386);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
+            this.textBox5.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox5.Size = new System.Drawing.Size(713, 92);
             this.textBox5.TabIndex = 17;
             this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);

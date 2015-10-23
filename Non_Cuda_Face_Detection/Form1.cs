@@ -182,6 +182,7 @@ namespace Non_Cuda_Face_Detection
             return ret_vect;
         }
 
+
         private void set_image(Image<Bgr, Byte> source, Rectangle crop)
         {
             try
@@ -215,7 +216,13 @@ namespace Non_Cuda_Face_Detection
                 {
                     show += vector_done[i].ToString() + ",";
                 }
-                this.textBox5.Text = show;
+                this.textBox5.Text = show + Environment.NewLine;
+                String[] allfiles = System.IO.Directory.GetFiles(@"F:\copy\", "*.jpg", System.IO.SearchOption.AllDirectories);
+                foreach (string subdir in allfiles)
+                {
+                    textBox5.AppendText(subdir + Environment.NewLine);
+                }
+                //this.textBox5.Text = show;
 
             }
             catch
