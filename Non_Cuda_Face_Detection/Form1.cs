@@ -217,11 +217,7 @@ namespace Non_Cuda_Face_Detection
                     show += vector_done[i].ToString() + ",";
                 }
                 this.textBox5.Text = show + Environment.NewLine;
-                String[] allfiles = System.IO.Directory.GetFiles(@"F:\copy\", "*.jpg", System.IO.SearchOption.AllDirectories);
-                foreach (string subdir in allfiles)
-                {
-                    textBox5.AppendText(subdir + Environment.NewLine);
-                }
+                
                 //this.textBox5.Text = show;
 
             }
@@ -309,6 +305,96 @@ namespace Non_Cuda_Face_Detection
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private string set_image_bulk(Image<Bgr, Byte> source, Rectangle crop)
+        {
+            try
+            {
+                Image<Bgr, Byte> ImageFrame = new Image<Bgr, Byte>(this.textBox4.Text.ToString());
+                //Image<Bgr, Byte> region=source;
+                ImageFrame.ROI = crop;
+                Image<Bgr, Byte> resizedImage = ImageFrame.Resize(150, 150, Emgu.CV.CvEnum.INTER.CV_INTER_LINEAR);
+                Image<Bgr, Byte> LBP_Image = new Image<Bgr, Byte>(LBP(ImageFrame.ToBitmap(), Convert.ToInt16(this.textBox6.Text.ToString())));
+                
+                //Image<Bgr, Byte> LBP_Image_Resized = resizeImage(LBP_Image.ToBitmap, new Size(50, 50));
+                //Image<Bgr, Byte> resizedImage = LBP_Image.Resize(150, 150, Emgu.CV.CvEnum.INTER.CV_INTER_LINEAR);
+                
+                //this.label10.Text = "Given Face Resolution =" + resizedImage.Width.ToString() + " X " + resizedImage.Height.ToString();
+
+                // TESTING FOR COMMIT
+
+                //@"F:\research\1.tif"
+                //resizedImage.ToBitmap
+                
+
+                
+                int[] vector_done = get_vectors(resizedImage.ToBitmap());
+                string show = "";
+                for (int i = 0; i < 9; i++)
+                {
+                    show += vector_done[i].ToString() + ",";
+                }
+                //this.textBox5.Text = show + Environment.NewLine;
+
+                //this.textBox5.Text = show;
+                return show;
+
+            }
+            catch
+            {
+
+            }
+            return null;
+        }
+
+        private void Image_vectors(string fileName)
+        {
+            Image<Bgr, Byte> ImageFrame = new Image<Bgr, Byte>(fileName);
+            if (ImageFrame != null)
+            {
+                double scaleIncreaseRate = Convert.ToDouble(this.textBox1.Text.ToString());
+                int minNeighbours = Convert.ToInt16(this.textBox2.Text.ToString());
+                int minDetectionScale = Convert.ToInt16(this.textBox3.Text.ToString());
+                Image<Gray, byte> grayframe = ImageFrame.Convert<Gray, byte>();
+
+                var faces = grayframe.DetectHaarCascade(haar,
+                    scaleIncreaseRate,
+                    minNeighbours, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
+                    new Size(minDetectionScale, minDetectionScale))[0];
+                Rectangle bigFace = new Rectangle(0, 0, 0, 0);
+                if (faces.Length > 0)
+                {
+                    foreach (var face in faces)
+                    {                        
+                        bigFace = get_big_rect(bigFace, face.rect);
+                    }
+                   
+                    string temp_vect=set_image_bulk(ImageFrame, bigFace);
+                    //this.textBox5.Text = temp_vect + fileName + Environment.NewLine;
+                    textBox5.AppendText(temp_vect + fileName + Environment.NewLine);
+                    //ImageFrame.ROI = bigFace;
+                }
+
+            }
+            
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            String[] allfiles = System.IO.Directory.GetFiles(@"F:\copy\", "*.*", System.IO.SearchOption.AllDirectories);
+            foreach (string subdir in allfiles)
+            {
+                if (subdir.EndsWith(".jpg") || subdir.EndsWith(".tif") || subdir.EndsWith(".png"))
+                {
+                    //textBox5.AppendText(subdir + Environment.NewLine);
+                    Image_vectors(subdir);
+
+                }
+                else
+                {
+                    textBox5.AppendText("ERROR" + subdir + Environment.NewLine);
+                }
+            }
         }
     }
 }
